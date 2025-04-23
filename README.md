@@ -1,6 +1,9 @@
-# CUSEC 2025 - Build your first Mobile App  
-> Updated + Refactored by: Timothy Klint ([LinkedIn](https://www.linkedin.com/in/timothy-klint))
+# JACHacks 2025 - Build your first Mobile App  
+> [!NOTE]  
+> Updated + Refactored by: Timothy Klint ([LinkedIn](https://www.linkedin.com/in/timothy-klint))  
+>  
 > Original workshop created by: Sanaa Syed ([LinkedIn](https://www.linkedin.com/in/sanaasy/))
+
 
 <p align="center" width="100%"><img src='assets/inaction.gif' width=250 />
 
@@ -272,6 +275,171 @@ const styles = StyleSheet.create({
 You’ve just built your first mobile app with Expo + React Native + TypeScript!
 
 Feel free to customize the styles, add delete functionality, or improve the UI to make it your own.
+
+<details>
+  <summary>Final App.tsx Code:</summary>
+
+  ```tsx
+  import React, { useState } from 'react';
+  import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    ScrollView,
+    KeyboardAvoidingView,
+    Platform,
+    StyleSheet,
+    Keyboard,
+  } from 'react-native';
+  import Task from './components/Task';
+
+  export default function App() {
+    const [task, setTask] = useState('');
+    const [taskList, setTaskList] = useState<string[]>([]);
+
+    const addTask = () => {
+      if (!task) return;
+      Keyboard.dismiss();
+      setTaskList([...taskList, task]);
+      setTask('');
+    };
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Today's To-Do List 📝</Text>
+
+        <ScrollView style={styles.scroll}>
+          {taskList.map((item, index) => (
+            <Task key={index} text={item} />
+          ))}
+        </ScrollView>
+
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.inputContainer}
+        >
+          <TextInput
+            style={styles.input}
+            placeholder="Write a task"
+            value={task}
+            onChangeText={setTask}
+          />
+          <TouchableOpacity onPress={addTask} style={styles.addButton}>
+            <Text style={styles.addButtonText}>+</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </View>
+    );
+  }
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#a3b18a',
+      paddingTop: 60,
+      paddingHorizontal: 20,
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: '#fff',
+      marginBottom: 20,
+    },
+    scroll: {
+      flex: 1,
+      marginBottom: 80,
+    },
+    inputContainer: {
+      position: 'absolute',
+      bottom: 40,
+      flexDirection: 'row',
+      width: '100%',
+      justifyContent: 'space-between',
+      paddingHorizontal: 20,
+    },
+    input: {
+      backgroundColor: '#fff',
+      borderRadius: 30,
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      flex: 1,
+      marginRight: 10,
+    },
+    addButton: {
+      backgroundColor: '#fff',
+      borderRadius: 30,
+      width: 50,
+      height: 50,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    addButtonText: {
+      fontSize: 20,
+      color: '#3a5a40',
+    },
+  });
+```
+</details> 
+
+<details>
+   <summary>Final Task.tsx Code:</summary>
+
+  ```tsx
+import React, { useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import Checkbox from 'expo-checkbox';
+
+type Props = {
+  text: string;
+};
+
+export default function Task({ text }: Props) {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <View style={styles.task}>
+      <View style={styles.row}>
+        <Checkbox
+          value={checked}
+          onValueChange={setChecked}
+          color="#3a5a40"
+          style={styles.checkbox}
+        />
+        <Text
+          style={[
+            styles.taskText,
+            { textDecorationLine: checked ? 'line-through' : 'none' },
+          ]}
+        >
+          {text}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  task: {
+    backgroundColor: '#fff',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  taskText: {
+    fontSize: 16,
+  },
+  checkbox: {
+    marginRight: 10,
+  },
+});
+  ```
+</details>
+
 
 ---
 
