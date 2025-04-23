@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "expo": "~52.0.46",
-    "expo-checkbox": "^4.0.1",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
     "react-native": "0.76.9"
