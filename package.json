@@ -11,15 +11,19 @@
   "dependencies": {
     "@expo/webpack-config": "^0.17.2",
     "expo": "~47.0.12",
+    "expo-checkbox": "~2.2.2",
     "expo-status-bar": "~1.4.2",
+    "node-fetch": "^3.3.2",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-native": "0.70.5",
-    "react-native-web": "~0.18.9",
-    "expo-checkbox": "~2.2.2"
+    "react-native": "0.70.8",
+    "react-native-web": "~0.18.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@types/react": "^19.1.2",
+    "@types/react-native": "^0.72.8",
+    "typescript": "^5.8.3"
   },
   "private": true
 }
